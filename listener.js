@@ -19,10 +19,10 @@ function youtubeListener(request, sender, sendResponse){
       }
       else{
         if (request.name == "next") {
-          document.getElementById('playlist-bar-next-button').click();
+          document.getElementById('watch7-playlist-bar-next-button').click();
         }
         else if (request.name == "previous") {
-          document.getElementById('playlist-bar-prev-button').click();
+          document.getElementById('watch7-playlist-bar-prev-button').click();
         }
         else if (request.name == "replayCurrent") {
           //document.getElementById('playlist-bar-autoplay-button').click();
