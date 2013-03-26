@@ -1,7 +1,7 @@
 {
    "name":"Keyboard control for youtube",
    "description": "Cross-tab keyboard control of youtube video and playlist playback",
-   "version":"1.0.6",
+   "version":"1.0.7",
    "manifest_version": 2,
    "content_scripts":[
       {
