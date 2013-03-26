@@ -1,13 +1,13 @@
 window.addEventListener("keyup", keyListener, false);
 
-var url = window.location.host;
-if(url.indexOf("youtube")>0){
-  chrome.extension.onRequest.addListener(youtubeListener);
+if(window.location.host.indexOf("youtube")>0 || window.location.toString().indexOf("watch/?v=")>0){
+  chrome.extension.onMessage.addListener(youtubeListener);
 };
 
 function youtubeListener(request, sender, sendResponse){
+  var player, button;
   if (request.name.length>0) {
-    var player = document.getElementById('movie_player');
+    player = document.getElementById('movie_player') || document.getElementById('ytPlayer');
     if(player!=null){
       if (request.name == "togglePlayback"){
         if(player.getPlayerState()==1) //playing
@@ -19,10 +19,12 @@ function youtubeListener(request, sender, sendResponse){
       }
       else{
         if (request.name == "next") {
-          document.getElementById('watch7-playlist-bar-next-button').click();
+          button = document.getElementById('watch7-playlist-bar-next-button');
+          if(button) button.click();
         }
         else if (request.name == "previous") {
-          document.getElementById('watch7-playlist-bar-prev-button').click();
+          button = document.getElementById('watch7-playlist-bar-prev-button');
+          if(button) button.click();
         }
         else if (request.name == "replayCurrent") {
           //document.getElementById('playlist-bar-autoplay-button').click();
@@ -45,16 +47,16 @@ function youtubeListener(request, sender, sendResponse){
 function keyListener(e) {
   if (e.ctrlKey && e.keyCode) {
     if (e.keyCode == 220) {
-      chrome.extension.sendRequest({name: "togglePlayback"});
+      chrome.extension.sendMessage({name: "togglePlayback"});
     }
     if (e.keyCode == 221) {
-      chrome.extension.sendRequest({name: "next"});
+      chrome.extension.sendMessage({name: "next"});
     }
     if (e.keyCode == 219) {
-      chrome.extension.sendRequest({name: "previous"});
+      chrome.extension.sendMessage({name: "previous"});
     }
     if (e.keyCode == 222) {
-      chrome.extension.sendRequest({name: "replayCurrent"});
+      chrome.extension.sendMessage({name: "replayCurrent"});
     }
   }
 };
